@@ -23,12 +23,30 @@ public class JoinRequest {
     @NotBlank(message = "닉네임이 비어있습니다.")
     private String nickname;
 
+    @NotBlank(message = "전화번호가 비어있습니다.")
+    private int phoneNumber;
+
+    private int birthDate;
+    private String gender;
+    private String job;
+    private String home;
+    private String school;
+
+
+
+
     // 비밀번호 암호화 X
     public User toEntity() {
         return User.builder()
                 .loginId(this.loginId)
                 .password(this.password)
                 .nickname(this.nickname)
+                .phoneNumber(this.phoneNumber)
+                .birthDate(this.birthDate)
+                .gender(this.gender)
+                .job(this.job)
+                .home(this.home)
+                .school(this.school)
                 .role(UserRole.USER)
                 .build();
     }
@@ -39,6 +57,12 @@ public class JoinRequest {
                 .loginId(this.loginId)
                 .password(encodedPassword)
                 .nickname(this.nickname)
+                .phoneNumber(this.phoneNumber)
+                .birthDate(this.birthDate)
+                .gender(this.gender)
+                .job(this.job)
+                .home(this.home)
+                .school(this.school)
                 .role(UserRole.USER)
                 .build();
     }
