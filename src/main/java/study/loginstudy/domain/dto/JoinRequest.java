@@ -23,7 +23,7 @@ public class JoinRequest {
     @NotBlank(message = "닉네임이 비어있습니다.")
     private String nickname;
 
-    @NotBlank(message = "전화번호가 비어있습니다.")
+    //@NotBlank(message = "전화번호가 비어있습니다.")
     private int phoneNumber;
 
     private int birthDate;

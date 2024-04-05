@@ -27,7 +27,7 @@ public class SecurityLoginController {
     private final UserService userService;
 
     @GetMapping(value = {"", "/"})
-    public String home(Model model, Authentication auth) {
+    public String loginhome(Model model, Authentication auth) {
 
         if(auth != null) {
             User loginUser = userService.getLoginUserByLoginId(auth.getName());
@@ -36,7 +36,7 @@ public class SecurityLoginController {
             }
         }
 
-        return "home";
+        return "loginhome";
     }
 
     @GetMapping("/join")
