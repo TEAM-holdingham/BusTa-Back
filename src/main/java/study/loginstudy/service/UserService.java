@@ -1,9 +1,11 @@
 package study.loginstudy.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.loginstudy.UserNotFoundException;
 import study.loginstudy.domain.dto.JoinRequest;
 import study.loginstudy.domain.dto.LoginRequest;
 import study.loginstudy.domain.entity.User;
@@ -16,8 +18,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+
     private final BCryptPasswordEncoder encoder;
+    @Autowired
+    private final UserRepository userRepository;
+    public User findByNickname(String nickname) {
+        Optional<User> userOpt = userRepository.findByNickname(nickname);
+        return userOpt.orElse(null);
+    }
 
     /**
      * loginId 중복 체크
@@ -108,4 +116,14 @@ public class UserService {
 
         return optionalUser.get();
     }
+    public String findNicknameByLoginId(String loginId) throws UserNotFoundException {
+        Optional<User> userOptional = userRepository.findByLoginId(loginId);
+        if (userOptional.isPresent()) {
+            return userOptional.get().getNickname();
+        } else {
+            throw new UserNotFoundException("User not found with login ID: " + loginId);
+        }
+    }
+
+
 }

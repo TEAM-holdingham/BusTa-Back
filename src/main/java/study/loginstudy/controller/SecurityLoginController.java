@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import study.loginstudy.UserNotFoundException;
 import study.loginstudy.domain.UserRole;
 import study.loginstudy.domain.dto.JoinRequest;
 import study.loginstudy.domain.dto.LoginRequest;
@@ -100,5 +101,14 @@ public class SecurityLoginController {
     @GetMapping("/authorization-fail")
     public String authorizationFail() {
         return "errorPage/authorizationFail";
+    }
+    @GetMapping("/nickname")
+
+    public String getNicknameByLoginId(@RequestParam("loginId") String loginId) {
+        try {
+            return userService.findNicknameByLoginId(loginId);
+        } catch (UserNotFoundException e) {
+            return e.getMessage();
+        }
     }
 }
